@@ -32,9 +32,9 @@ def get_markdown_title_by_line(line):
     :param line:
     :return:
     """
-    r_idx = line.rindex('[')
-    l_idx = line.index(']')
-    return line[r_idx + 1:l_idx]
+    left_idx = line.index('[')
+    right_idx = line.index(']')
+    return line[left_idx + 2:right_idx]
 
 
 def get_create_time_by_line(line):
@@ -64,10 +64,10 @@ def get_tags_by_line(line):
             tag = tag + ch
             continue
         if ch == ' ' and tag != '':
-            tags.append(tag.strip())
+            tags.append(tag.replace('[', '').strip())
             tag = ''
     if tag != '':
-        tags.append(tag.strip())
+        tags.append(tag.replace('[', '').strip())
     return tags[1:]
 
 

@@ -1,5 +1,5 @@
-from util import *
 from markdown_parser import *
+from util import *
 
 blog_page_path = '/Users/peiel/Library/Mobile Documents/com~apple~CloudDocs/PKM/logseq/pages/blog.md'
 logseq_page_dir_path = '/Users/peiel/Library/Mobile Documents/com~apple~CloudDocs/PKM/logseq/pages/'
@@ -18,6 +18,8 @@ if __name__ == '__main__':
             current_category = line.replace("##", "").strip()
             continue
         if line.startswith("\t"):
+            if not line.strip() or line.strip() == '-':  # 判断空行的情况
+                continue
             md_name = get_markdown_title_by_line(line)
             create_time = get_create_time_by_line(line)
             tags = get_tags_by_line(line)
