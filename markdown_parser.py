@@ -98,7 +98,7 @@ def generate_blog_markdown(md_content_lines, md_title, create_time, tags):
     loop_code = False
     for line in md_content_lines:
         line = format_line(line)
-        if line.strip() == '-':  # 忽略的情况
+        if line.strip() == '-' or 'collapsed::' in line:  # 忽略的情况
             idx = idx + 1
             continue
         if line.strip().startswith('```'):
