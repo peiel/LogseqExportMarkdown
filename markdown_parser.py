@@ -44,7 +44,10 @@ def get_create_time_by_line(line):
     :return:
     """
     start = line.index('#')
-    end = line[start:].index(' ') + start
+    try:
+        end = line[start:].index(' ') + start
+    except:
+        end = -1
     return line[start + 1:end]
 
 
