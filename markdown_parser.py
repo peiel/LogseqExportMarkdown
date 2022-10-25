@@ -96,6 +96,7 @@ def generate_blog_markdown(md_content_lines, md_title, create_time, tags):
     # 头部内容结束拼接
     idx = 0
     loop_code = False
+    code_left_charset_length = 0
     for line in md_content_lines:
         line = format_line(line)
         if line.strip() == '-' \
@@ -106,11 +107,15 @@ def generate_blog_markdown(md_content_lines, md_title, create_time, tags):
             continue
         if line.strip().startswith('```'):
             loop_code = not loop_code
+            if loop_code:
+                code_left_charset_length = line.index("`")
+            else:
+                code_left_charset_length = 0
         if not loop_code:
             line = '\t' + line.lstrip() if need_add_tab(md_content_lines, idx) else line.lstrip()
             content = content + line
             content = content + '\n'
         else:
-            content = content + line[2:]
+            content = content + line[code_left_charset_length:]
         idx = idx + 1
     return content
