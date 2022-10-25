@@ -7,6 +7,10 @@ def format_line(line):
     if line.lstrip().startswith('- '):
         idx = line.index('-')
         line = line[:idx] + '  ' + line[idx + 2:]
+    if line.lstrip().startswith("!["):
+        start_idx = line.index('(')
+        end_idx = line.index(')')
+        line = line[:start_idx] + (line[start_idx:end_idx].replace(' ', '%20')) + line[end_idx:]
     return line
 
 
