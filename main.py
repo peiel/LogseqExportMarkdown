@@ -1,3 +1,5 @@
+import os
+
 from markdown_parser import *
 from util import *
 
@@ -6,6 +8,8 @@ logseq_page_dir_path = '/Users/peiel/Library/Mobile Documents/com~apple~CloudDoc
 blog_out_dir_path = '/Users/peiel/blog/content/posts/'
 
 if __name__ == '__main__':
+    # 清空博客目录
+    os.system("rm -rf %s*" % blog_out_dir_path)
     # 读取page页面
     with open(blog_page_path) as f:
         lines = [line for line in f]
