@@ -1,6 +1,6 @@
 # LogseqExportMarkdown
 
-Export Markdown By Logseq Page.
+Export Markdown from Logseq Page.
 
 ## Before Start
 
