@@ -1,15 +1,23 @@
 # LogseqExportMarkdown
 
-转换 Logseq 中文本到标准 Markdown 格式。
+Export Markdown By Logseq Page.
 
-## 准备工作
+## Before Start
 
-在 Logseq 中创建一个标题为 blog 的页面，对该页面做如下规范。
+logseq page must add bellow properties
 
-### Logseq Blog Page 格式规范
+```
+publish:: $category $DATE(%Y-%m-%d)
+```
 
-1. 分类必须以 `H2` 格式
-2. 文章必须 `\t` 进一格
-3. 文档创建日期必须是第一个 `#` 号开头的标签
+other properties support
 
-点击查看demo
+```
+tags:: #xxx #xxx
+```
+
+## How to use
+
+1. pull this repo
+2. configuration logseq path and markdown out path
+3. run command `python main.py`
