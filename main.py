@@ -26,13 +26,12 @@ if __name__ == '__main__':
                 continue
             md_name = get_markdown_title_by_line(line)
             create_time = get_create_time_by_line(line)
-            tags = get_tags_by_line(line)
-            print("开始生成文章 - %s \n分类: %s\n标题: %s\n创建时间: %s\n标签: %s\n"
-                  % (idx, current_category, md_name, create_time, tags))
+            print("开始生成文章 - %s \n分类: %s\n标题: %s\n创建时间: %s\n"
+                  % (idx, current_category, md_name, create_time))
             # 读取 Markdown
             md_content_lines = read_file_to_string(logseq_page_dir_path + md_name + '.md')
             # 生成 Markdown
-            new_md_content = generate_blog_markdown(md_content_lines, md_name, create_time, tags)
+            new_md_content = generate_blog_markdown(md_content_lines, md_name, create_time)
             # 写入到 blog 目录中
             write_to_blog_path(blog_out_dir_path, new_md_content, md_name)
             idx = idx + 1

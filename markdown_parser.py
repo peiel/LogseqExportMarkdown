@@ -55,15 +55,23 @@ def get_create_time_by_line(line):
     return line[start + 1:end]
 
 
-def get_tags_by_line(line):
+def find_tags_line(lines):
+    for line in lines:
+        if 'tags::' in line:
+            return line
+    return []
+
+
+def get_tags_by_line(lines):
     """
     获取 Markdown 的标签
-    :param line:
+    :param lines:
     :return: 标签列表
     """
+    tags_prop_line = find_tags_line(lines)
     tags = list()
     tag = ''
-    for ch in line:
+    for ch in tags_prop_line:
         if '#' == ch:
             tag = ch
             continue
@@ -75,18 +83,19 @@ def get_tags_by_line(line):
             tag = ''
     if tag != '':
         tags.append(tag.replace('[', '').strip())
-    return tags[1:]
+    return tags
 
 
-def generate_blog_markdown(md_content_lines, md_title, create_time, tags):
+def generate_blog_markdown(md_content_lines, md_title, create_time):
     """
     通过原始信息生成新的 Markdown 文本
     :param md_content_lines: 获取的原始的内容的列表
     :param md_title: Markdown 的标题
     :param create_time: Markdown 的创建时间
-    :param tags: 标签列表
     :return: 转换后的 Markdown 文本
     """
+    # 解析 tags
+    tags = get_tags_by_line(md_content_lines)
     # 头部内容开始拼接
     content = ''
     content = content + '---\n'
@@ -104,9 +113,9 @@ def generate_blog_markdown(md_content_lines, md_title, create_time, tags):
     for line in md_content_lines:
         line = format_line(line)
         if line.strip() == '-' \
-                or 'collapsed::' in line\
-                or 'title::' in line\
-                :  # 忽略的情况
+                or 'collapsed::' in line \
+                or 'title::' in line \
+                or 'tags::' in line:  # 忽略的情况
             idx = idx + 1
             continue
         if line.strip().startswith('```'):
