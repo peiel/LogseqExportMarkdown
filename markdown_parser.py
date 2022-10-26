@@ -1,3 +1,13 @@
+import datetime as dt
+
+
+def need_publish_markdown(lines):
+    for line in lines:
+        if line.startswith('publish:: '):
+            return True
+    return False
+
+
 def format_line(line):
     """
     Format Logseq markdown line to standard markdown line
@@ -41,18 +51,17 @@ def get_markdown_title_by_line(line):
     return line[left_idx + 2:right_idx]
 
 
-def get_create_time_by_line(line):
+def get_create_time_by_line(lines):
     """
     获取 Markdown 的创建时间
-    :param line:
+    :param lines:
     :return:
     """
-    start = line.index('#')
-    try:
-        end = line[start:].index(' ') + start
-    except:
-        end = -1
-    return line[start + 1:end]
+    for line in lines:
+        if line.startswith("publish:: "):
+            idx = line.index('#2') + 1
+            return line[idx:idx + 10]
+    return dt.datetime.now().strftime('%Y-%m-%d')
 
 
 def find_tags_line(lines):
@@ -86,16 +95,16 @@ def get_tags_by_line(lines):
     return tags
 
 
-def generate_blog_markdown(md_content_lines, md_title, create_time):
+def generate_blog_markdown(md_content_lines, md_title):
     """
     通过原始信息生成新的 Markdown 文本
     :param md_content_lines: 获取的原始的内容的列表
     :param md_title: Markdown 的标题
-    :param create_time: Markdown 的创建时间
     :return: 转换后的 Markdown 文本
     """
     # 解析 tags
     tags = get_tags_by_line(md_content_lines)
+    create_time = get_create_time_by_line(md_content_lines)
     # 头部内容开始拼接
     content = ''
     content = content + '---\n'
@@ -115,6 +124,7 @@ def generate_blog_markdown(md_content_lines, md_title, create_time):
         if line.strip() == '-' \
                 or 'collapsed::' in line \
                 or 'title::' in line \
+                or 'publish::' in line \
                 or 'tags::' in line:  # 忽略的情况
             idx = idx + 1
             continue

@@ -8,7 +8,7 @@ def read_file_to_string(path):
     :param path:
     :return: 行的列表
     """
-    path = path.replace('#', '%23')
+    # path = path.replace('#', '%23')
     with open(path) as f:
         return f.readlines()
 
