@@ -1,10 +1,10 @@
 # LogseqExportMarkdown
 
-Export Markdown By Logseq Page.
+Export Markdown from Logseq Page.
 
 ## Before Start
 
-logseq page must add bellow properties
+logseq page must add publish properties
 
 ```
 publish:: $category $DATE(%Y-%m-%d)
