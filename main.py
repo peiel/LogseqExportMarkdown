@@ -3,7 +3,7 @@ import os
 from markdown_parser import *
 from util import *
 
-logseq_page_dir_path = '/Users/peiel/Library/Mobile Documents/iCloud~com~logseq~logseq/Documents/logseq/pages/'
+logseq_page_dir_path = "/Users/peiel/Library/Mobile Documents/iCloud~com~logseq~logseq/Documents/pages/"
 blog_out_dir_path = '/Users/peiel/blog/content/posts/'
 
 if __name__ == '__main__':

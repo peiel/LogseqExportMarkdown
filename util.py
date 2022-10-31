@@ -37,9 +37,25 @@ def write_content_to_path(target_path, content):
 
 
 def convert_chinese_string_to_pinyin(chinese_str):
+    chinese_str = chinese_str.replace(" ", "-")
+    chinese_str = chinese_str.replace("(", "-")
+    chinese_str = chinese_str.replace(")", "-")
+    chinese_str = chinese_str.replace("（", "-")
+    chinese_str = chinese_str.replace("）", "-")
+    chinese_str = chinese_str.replace(",", "-")
+    chinese_str = chinese_str.replace("'", "-")
+    chinese_str = chinese_str.replace("~", "-")
+    chinese_str = chinese_str.replace("?", "-")
+    chinese_str = chinese_str.replace("？", "-")
     m = {}
     for n in re.findall(r'[\u4e00-\u9fff]+', chinese_str):
         m[n] = pinyin.get(n, format="strip", delimiter=" ")
     for key in m:
         chinese_str = chinese_str.replace(key, m[key])
-    return chinese_str.replace(' ', '-').lower()
+    py = chinese_str.replace(' ', '-').lower()
+    pys = py.split('-')
+    result = ''
+    for item in pys:
+        if item:
+            result = result + item + '-'
+    return result[:-1]
